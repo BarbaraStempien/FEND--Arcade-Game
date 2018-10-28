@@ -46,7 +46,7 @@ class Player {
         this.width = 101;
         this.height = 83;
         this.x = this.width * 2;
-        this.y = this.height * 5;
+        this.y = this.height * 5 - (0.5 *this.height);
     }
 
     /**
@@ -63,16 +63,16 @@ class Player {
     handleInput(direction) {
         switch (direction) {
         case 'left':
-            this.x -= this.width;
+            (this.x > 0) ? this.x -= this.width : this.x;
             break;
         case 'up':
-            this.y -= this.height;
+            (this.y > this.height) ? this.y -= this.height : this.y;
             break;
         case 'right':
-            this.x += this.width;
+            (this.x < this.width * 4) ? this.x += this.width : this.x;
             break;
         case 'down':
-            this.y += this.height;
+            (this.y < this.height * 4) ? this.y += this.height : this.y;
             break;
         }
     }
