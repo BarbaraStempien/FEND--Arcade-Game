@@ -23,7 +23,7 @@ class Enemy {
         this.width = 101;
         this.height = 83;
         this.x = x;
-        this.y = y - (0.5 * this.height);
+        this.y = y - (0.25 * this.height);
     }
 
     /**
@@ -96,10 +96,9 @@ class Player {
 // Place the player object in a variable called player
 const player = new Player('images/char-horn-girl.png');
 
-// Instantiate enemy
-// TO-DO - multiple enemies
-const allEnemies = [];
-allEnemies.push(new Enemy(0, 101));
+// Instantiate enemies
+const pathsCenter = [83, 166, 249];
+const allEnemies = pathsCenter.map((coord, x) => new Enemy(x, coord));
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
