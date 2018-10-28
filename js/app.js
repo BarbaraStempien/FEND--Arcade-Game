@@ -89,10 +89,17 @@ const player = new Player('images/char-horn-girl.png');
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
     const allowedKeys = {
+        // Arrow keys
         37: 'left',
         38: 'up',
         39: 'right',
         40: 'down',
+
+        // WASD keys
+        65: 'left',
+        87: 'up',
+        68: 'right',
+        83: 'down',
     };
 
     player.handleInput(allowedKeys[e.keyCode]);
