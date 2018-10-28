@@ -34,15 +34,19 @@ Enemy.prototype.render = function() {
 /** Class representing a player. */
 class Player {
     /**
-     * Create a player.
-     * @param {number} x - horizontal position
-     * @param {number} y - vertical position
-     * @param {string} sprite - character image
-    */
-    constructor(x, y, sprite) {
-        this.x = x;
-        this.y = y;
+   * Create a player.
+   * @param {string} sprite - path to character's image
+   * @param {number} width - width of block
+   * @param {number} height - height of block
+   * @param {number} x - initial position of character (horizontal)
+   * @param {number} y - initial position of character (vertical)
+   */
+    constructor(sprite) {
         this.sprite = sprite;
+        this.width = 101;
+        this.height = 83;
+        this.x = this.width * 2;
+        this.y = this.height * 5;
     }
 
     /**
@@ -52,14 +56,34 @@ class Player {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
 
+    /**
+     * Move character on key press
+     * @param {string} direction - the direction of the character's movement
+     */
+    handleInput(direction) {
+        switch (direction) {
+        case 'left':
+            this.x -= this.width;
+            break;
+        case 'up':
+            this.y -= this.height;
+            break;
+        case 'right':
+            this.x += this.width;
+            break;
+        case 'down':
+            this.y += this.height;
+            break;
+        }
+    }
+
     // TO-DO update()
-    // TO-DO handleInput()
 }
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-const player = new Player(0, 0, 'images/char-horn-girl.png');
+const player = new Player('images/char-horn-girl.png');
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
