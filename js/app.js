@@ -19,11 +19,11 @@ class Enemy {
    * @param {number} height - height of block
    */
     constructor(x, y) {
-        this.x = x;
-        this.y = y - (0.5 * this.height);
         this.sprite = 'images/enemy-bug.png';
         this.width = 101;
         this.height = 83;
+        this.x = x;
+        this.y = y - (0.5 * this.height);
     }
 
     /**
@@ -34,10 +34,11 @@ class Enemy {
     }
 
     /**
-     * TO-DO - move enemy
-     * @param {number} dt - dt
+     * Move enemy on the screen.
+     * @param {number} dt - time delta
      */
     update(dt) {
+        (this.x < this.width * 5) ? this.x += this.width * dt : this.x = -this.width;
     }
 };
 
