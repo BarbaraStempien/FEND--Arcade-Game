@@ -1,3 +1,13 @@
+// Pause game function
+// https://discussions.udacity.com/t/project-3-arcade-game-how-to-add-a-pause-feature/821217
+let paused = false;
+window.onfocus = function() {
+    paused = false;
+};
+window.onblur = function() {
+    paused = true;
+};
+
 // Enemies our player must avoid
 var Enemy = function() {
     // Variables applied to each of our instances go here,
