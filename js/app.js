@@ -1,16 +1,15 @@
-// Rundom number
+// Random number from array
+const randomArray = (array) => array[Math.floor((Math.random()*array.length))];
+
+// Random number from interval
 // https://stackoverflow.com/a/7228322
 const randomInterval = (min, max) => Math.floor(Math.random()*(max-min+1)+min);
 
-// Pause game function
-// https://discussions.udacity.com/t/project-3-arcade-game-how-to-add-a-pause-feature/821217
-let paused = false;
-window.onfocus = function() {
-    paused = false;
-};
-window.onblur = function() {
-    paused = true;
-};
+// Coordinates for center of each path
+const pathCenter = [83, 166, 249];
+
+// Coordinates for each spawn point
+const spawnPoint = [-101, -202, -303, -404];
 
 /** Class representing an enemy. */
 class Enemy {
@@ -103,8 +102,7 @@ class Player {
 const player = new Player('images/char-horn-girl.png');
 
 // Instantiate enemies
-const pathsCenter = [83, 166, 249];
-const allEnemies = pathsCenter.map((y, x) => new Enemy(x, y, randomInterval(100, 250)));
+const allEnemies = pathCenter.map((y) => new Enemy(randomArray(spawnPoint), y, randomInterval(150, 300)));
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
