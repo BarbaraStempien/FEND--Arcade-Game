@@ -9,9 +9,9 @@ const randomInterval = (min, max) => Math.floor(Math.random()*(max-min+1)+min);
 const pathCenter = [83, 166, 249];
 
 // Coordinates for each spawn point
-const spawnPoint = [-101, -202, -303, -404];
+const spawnPoint = [-101, -202];
 
-// Block parameters
+// Cancas block parameters
 const blockWidth = 101;
 const blockHeight = 83;
 
@@ -98,7 +98,13 @@ class Player {
 const player = new Player('images/char-horn-girl.png');
 
 // Instantiate enemies
-const allEnemies = pathCenter.map((y) => new Enemy(randomArray(spawnPoint), y, randomInterval(150, 300)));
+const allEnemies = [];
+
+spawnPoint.forEach((s) => {
+    pathCenter.forEach((p) => {
+        allEnemies.push(new Enemy(s, p, randomInterval(100, 400)));
+    });
+});
 
 // This listens for key presses and sends the keys to
 // Player.handleInput() method.
