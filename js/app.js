@@ -1,3 +1,7 @@
+// Rundom number
+// https://stackoverflow.com/a/7228322
+const randomInterval = (min, max) => Math.floor(Math.random()*(max-min+1)+min);
+
 // Pause game function
 // https://discussions.udacity.com/t/project-3-arcade-game-how-to-add-a-pause-feature/821217
 let paused = false;
@@ -14,16 +18,18 @@ class Enemy {
    * Create an enemy.
    * @param {number} x - initial position of enemy (horizontal)
    * @param {number} y - initial position of enemy (vertical)
+   * @param {number} speed - enemy speed
    * @param {string} sprite - path to enemy's image
    * @param {number} width - width of block
    * @param {number} height - height of block
    */
-    constructor(x, y) {
+    constructor(x, y, speed) {
         this.sprite = 'images/enemy-bug.png';
         this.width = 101;
         this.height = 83;
         this.x = x;
         this.y = y - (0.25 * this.height);
+        this.speed = speed;
     }
 
     /**
@@ -38,7 +44,7 @@ class Enemy {
      * @param {number} dt - time delta
      */
     update(dt) {
-        (this.x < this.width * 5) ? this.x += this.width * dt : this.x = -this.width;
+        (this.x < this.width * 5) ? this.x += this.speed * dt : this.x = -this.width;
     }
 };
 
@@ -98,7 +104,7 @@ const player = new Player('images/char-horn-girl.png');
 
 // Instantiate enemies
 const pathsCenter = [83, 166, 249];
-const allEnemies = pathsCenter.map((coord, x) => new Enemy(x, coord));
+const allEnemies = pathsCenter.map((y, x) => new Enemy(x, y, randomInterval(100, 250)));
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
