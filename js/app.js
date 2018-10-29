@@ -13,7 +13,9 @@ const spawnPoint = [-101, -202];
 
 // Cancas block parameters
 const blockWidth = 101;
+const quarterBlockWidth = 0.25 * blockWidth;
 const blockHeight = 83;
+const quarterBlockHeight = 0.25 * blockHeight;
 
 /** Class representing an enemy. */
 class Enemy {
@@ -27,7 +29,7 @@ class Enemy {
     constructor(x, y, speed) {
         this.sprite = 'images/enemy-bug.png';
         this.x = x;
-        this.y = y - (0.25 * blockHeight);
+        this.y = y - quarterBlockHeight;
         this.speed = speed;
     }
 
@@ -57,8 +59,10 @@ class Player {
    */
     constructor(sprite) {
         this.sprite = sprite;
-        this.x = blockWidth * 2;
-        this.y = blockHeight * 5 - (0.5 * blockHeight);
+        this.spawnX = blockWidth * 2;
+        this.x = this.spawnX;
+        this.spawnY = blockHeight * 5 - quarterBlockHeight;
+        this.y = this.spawnY;
     }
 
     /**
@@ -68,8 +72,14 @@ class Player {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
 
-    /** TO-DO */
+    /** Reset character position when it collides with enemy */
     update() {
+        allEnemies.forEach((enemy) => {
+            if (this.y === enemy.y && (enemy.x + quarterBlockWidth >= this.x - quarterBlockWidth && enemy.x - quarterBlockWidth <= this.x + quarterBlockWidth)) {
+                this.y = this.spawnY;
+                this.x = this.spawnX;
+            }
+        });
     }
 
     /**
