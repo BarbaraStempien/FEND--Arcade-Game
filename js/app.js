@@ -11,6 +11,10 @@ const pathCenter = [83, 166, 249];
 // Coordinates for each spawn point
 const spawnPoint = [-101, -202, -303, -404];
 
+// Block parameters
+const blockWidth = 101;
+const blockHeight = 83;
+
 /** Class representing an enemy. */
 class Enemy {
     /**
@@ -19,15 +23,11 @@ class Enemy {
    * @param {number} y - initial position of enemy (vertical)
    * @param {number} speed - enemy speed
    * @param {string} sprite - path to enemy's image
-   * @param {number} width - width of block
-   * @param {number} height - height of block
    */
     constructor(x, y, speed) {
         this.sprite = 'images/enemy-bug.png';
-        this.width = 101;
-        this.height = 83;
         this.x = x;
-        this.y = y - (0.25 * this.height);
+        this.y = y - (0.25 * blockHeight);
         this.speed = speed;
     }
 
@@ -39,11 +39,11 @@ class Enemy {
     }
 
     /**
-     * Move enemy on the screen.
+     * Move enemy back to spawn point when it reached the border.
      * @param {number} dt - time delta
      */
     update(dt) {
-        (this.x < this.width * 5) ? this.x += this.speed * dt : this.x = -this.width;
+        (this.x < blockWidth * 5) ? this.x += this.speed * dt : this.x = randomArray(spawnPoint);
     }
 };
 
@@ -52,24 +52,24 @@ class Player {
     /**
    * Create a player.
    * @param {string} sprite - path to character's image
-   * @param {number} width - width of block
-   * @param {number} height - height of block
    * @param {number} x - initial position of character (horizontal)
    * @param {number} y - initial position of character (vertical)
    */
     constructor(sprite) {
         this.sprite = sprite;
-        this.width = 101;
-        this.height = 83;
-        this.x = this.width * 2;
-        this.y = this.height * 5 - (0.5 *this.height);
+        this.x = blockWidth * 2;
+        this.y = blockHeight * 5 - (0.5 * blockHeight);
     }
 
     /**
-     * Draw player to the screen.
-     */
+   * Draw player to the screen.
+   */
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    }
+
+    /** TO-DO */
+    update() {
     }
 
     /**
@@ -79,34 +79,30 @@ class Player {
     handleInput(direction) {
         switch (direction) {
         case 'left':
-            (this.x > 0) ? this.x -= this.width : this.x;
+            (this.x > 0) ? this.x -= blockWidth : this.x;
             break;
         case 'up':
-            (this.y > this.height) ? this.y -= this.height : this.y;
+            (this.y > blockHeight) ? this.y -= blockHeight : this.y;
             break;
         case 'right':
-            (this.x < this.width * 4) ? this.x += this.width : this.x;
+            (this.x < blockWidth * 4) ? this.x += blockWidth : this.x;
             break;
         case 'down':
-            (this.y < this.height * 4) ? this.y += this.height : this.y;
+            (this.y < blockHeight * 4) ? this.y += blockHeight : this.y;
             break;
         }
     }
-
-    // TO-DO update()
 }
 
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
+// Instantiate player
 const player = new Player('images/char-horn-girl.png');
 
 // Instantiate enemies
 const allEnemies = pathCenter.map((y) => new Enemy(randomArray(spawnPoint), y, randomInterval(150, 300)));
 
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
-document.addEventListener('keyup', function(e) {
+// This listens for key presses and sends the keys to
+// Player.handleInput() method.
+document.addEventListener('keyup', (e) => {
     const allowedKeys = {
         // Arrow keys
         37: 'left',
@@ -123,3 +119,10 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+// Pause game function
+// https://discussions.udacity.com/t/project-3-arcade-game-how-to-add-a-pause-feature/821217
+let paused = false;
+
+window.onfocus = () => paused = false;
+window.onblur = () => paused = true;
