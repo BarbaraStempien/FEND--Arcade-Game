@@ -83,7 +83,6 @@ const Engine = (function(global) {
     function update(dt) {
         if (!paused) {
             updateEntities(dt);
-            // checkCollisions();
         }
     }
 

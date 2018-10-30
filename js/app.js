@@ -72,14 +72,25 @@ class Player {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
 
-    /** Reset character position when it collides with enemy */
+    /** Reset character position when it collides with enemy or when player wins */
     update() {
         allEnemies.forEach((enemy) => {
             if (this.y === enemy.y && (enemy.x + quarterBlockWidth >= this.x - quarterBlockWidth && enemy.x - quarterBlockWidth <= this.x + quarterBlockWidth)) {
-                this.y = this.spawnY;
-                this.x = this.spawnX;
+                this.reset();
             }
         });
+
+        if (this.y <= quarterBlockHeight) {
+            this.reset();
+        }
+    }
+
+    /**
+   * Reset player's position to initial.
+   */
+    reset() {
+        this.y = this.spawnY;
+        this.x = this.spawnX;
     }
 
     /**
@@ -92,7 +103,7 @@ class Player {
             (this.x > 0) ? this.x -= blockWidth : this.x;
             break;
         case 'up':
-            (this.y > blockHeight) ? this.y -= blockHeight : this.y;
+            (this.y > 0) ? this.y -= blockHeight : this.y;
             break;
         case 'right':
             (this.x < blockWidth * 4) ? this.x += blockWidth : this.x;
