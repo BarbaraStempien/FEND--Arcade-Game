@@ -24,7 +24,7 @@ Clone this repository and open `index.html` or play on GitHub.io: https://barbar
 
 ## Screenshots
 
-![alt text](/screenshots/gameplay.png "Game play")
+![alt text](/screenshots/gameplay.jpg "Game play")
 
 ## Tools & Dependencies
 
