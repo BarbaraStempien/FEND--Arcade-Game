@@ -3,6 +3,8 @@
 ## Table of Contents
 
 * [Description](#description)
+* [How to play](#howtoplay)
+* [Screenshots](#screenshots)
 * [Tools & Dependencies](#tools)
 * [Installation](#Installation)
 * [Contributing](#contributing)
@@ -10,11 +12,25 @@
 
 ## Description
 
-This is an arcade game.
+This is an arcade game - the player tries to reach the water without colliding into enemies. Once the player reaches the water the game is won and the player's score is increased.
+
+The enemies - bugs - move in varying speeds on the paved block portion of the scene. Once the player collides with an enemy, the game is reset and the player moves back to the start square. Player's score and the number of lives are decreased. The game is over when all lives are lost. 
+
+The player can receive a bonus life for collecting a key. Moreover, the player can also increase the score by collecting gems. Gems and key spans in the random places on the scene.
+
+## How to play 🕹
+
+Clone this repository and open `index.html` or play on GitHub.io: https://barbarastempien.github.io/FEND--Arcade-Game/
+
+## Screenshots
+
+![alt text](/screenshots/gameplay.png "Game play")
 
 ## Tools & Dependencies
 
-Built with HTML, CSS, Javascript ES6.
+This game was built with vanilla Javascript (ES6), HTML, CSS.
+
+Game was tested and works on modern browsers - Firefox, Chrome, Edge. Internet Explorer 11 is not supported.
 
 ## Installation
 
