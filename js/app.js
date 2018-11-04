@@ -1,3 +1,7 @@
+// Pause game function
+// https://discussions.udacity.com/t/project-3-arcade-game-how-to-add-a-pause-feature/821217
+let paused = false;
+
 // Random number from array
 const randomArray = (array) => array[Math.floor((Math.random() * array.length))];
 
@@ -195,6 +199,26 @@ const gameOver = (score) => {
     modalButton.addEventListener('click', () => {
         window.location.reload();
     });
+
+    // Listen for and trap the keyboard
+    // https://github.com/udacity/ud891/blob/gh-pages/lesson5-semantics-aria/21-dialog/solution/modal.js
+    modalContainer.addEventListener('keydown', trapTabKey);
+
+    /** Trap keyboard in modal
+     * @param {key} e = keybaord key
+     */
+    function trapTabKey(e) {
+        // Check for TAB key press
+        if (e.keyCode === 9) {
+            e.preventDefault();
+            modalButton.focus();
+        }
+
+        // ESCAPE
+        if (e.keyCode === 27) {
+            window.location.reload();
+        }
+    }
 };
 
 
@@ -232,10 +256,3 @@ document.addEventListener('keyup', (e) => {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
-
-// Pause game function
-// https://discussions.udacity.com/t/project-3-arcade-game-how-to-add-a-pause-feature/821217
-let paused = false;
-
-window.onfocus = () => paused = false;
-window.onblur = () => paused = true;

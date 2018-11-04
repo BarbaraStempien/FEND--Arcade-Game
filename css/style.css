@@ -44,8 +44,12 @@ body {
   flex: 0 0 50%;
   margin: 0;
   padding: 0;
-  font-size: 1rem;
+  font-size: 1.5rem;
   margin-bottom: -50px;
+}
+
+.score-wrapper {
+  text-shadow: 0px 3px 0px #b2a98f;
 }
 
 .lives-wrapper li {
@@ -87,8 +91,32 @@ body {
   border-radius: 10px;
   text-align: center;
   transition: all, .5s;
+  font-size: 1.5rem;
+  text-shadow: 0px 3px 0px #b2a98f;
 }
 
 .modal.active {
   display: flex;
+}
+
+/* buttons from https://codepen.io/cheeriottis/pen/inluv */
+.modal-button {
+  position: relative;
+  padding: 0.5rem 2rem;
+  margin: 0px 1.25rem 0 0px;
+  border: none;
+  border-radius: 0.625rem;
+  font-family: 'Pacifico', cursive;
+  font-size: 1rem;
+  color: #FFF;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: #D4AF37;
+}
+
+.modal-button:hover,
+.modal-button:active,
+.modal-button:focus {
+  outline: none;
+  background-color: #9B7400;
 }

@@ -148,8 +148,9 @@ const Engine = (function(global) {
                 ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
             }
         }
-
-        renderEntities();
+        if (!paused) {
+            renderEntities();
+        }
     }
 
     /** This function is called by the render function and is called on each
