@@ -52,11 +52,25 @@ body {
   color: #980505;
 }
 
-.lives-wrapper li{
+.lives-wrapper li {
   font-size: 1.625rem;
   padding: 0.1875rem;
 }
 
 .lost {
+  -webkit-animation: grey-out 0.3s linear 2 alternate;
+  animation: grey-out 0.3s linear 2 alternate;
   color: #a9a9a9;
+}
+
+@-webkit-keyframes grey-out {
+  to {
+    color: #980505;
+  }
+}
+
+@keyframes grey-out {
+  to {
+    color: #980505;
+  }
 }

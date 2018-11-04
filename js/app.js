@@ -82,20 +82,20 @@ class Player {
     die() {
         this.lives -= 1;
 
+        const livesList = Array.from(document.querySelectorAll('.fa-heart'));
+        for (let i = livesList.length - 1; i >= 0; i--) {
+            if (!livesList[i].classList.contains('lost')) {
+                livesList[i].classList.toggle('lost');
+                break;
+            }
+        };
+
         if (this.lives === 0) {
             //   TO-DO - write game-over logic
             this.reset();
             console.log('Game over');
         } else {
             this.reset();
-
-            const livesList = Array.from(document.querySelectorAll('.fa-heart'));
-            for (let i = livesList.length - 1; i >= 0; i--) {
-                if (!livesList[i].classList.contains('lost')) {
-                    livesList[i].classList.toggle('lost');
-                    break;
-                }
-            }
         }
     }
 
