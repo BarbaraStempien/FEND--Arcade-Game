@@ -46,8 +46,7 @@ class Enemy {
 
 /** Class representing a player. */
 class Player {
-    /**
-   * Create a player.
+    /** Create a player
    * @param {string} sprite - path to character's image
    * @param {number} x - initial position of character (horizontal)
    * @param {number} y - initial position of character (vertical)
@@ -58,11 +57,10 @@ class Player {
         this.x = this.spawnX;
         this.spawnY = blockHeight * 5 - quarterBlockHeight;
         this.y = this.spawnY;
+        this.lives = 5;
     }
 
-    /**
-   * Draw player to the screen.
-   */
+    /** Draw player to the screen */
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
@@ -71,7 +69,7 @@ class Player {
     update() {
         allEnemies.forEach((enemy) => {
             if (this.y === enemy.y && (enemy.x + quarterBlockWidth >= this.x - quarterBlockWidth && enemy.x - quarterBlockWidth <= this.x + quarterBlockWidth)) {
-                this.reset();
+                this.die();
             }
         });
 
@@ -80,16 +78,34 @@ class Player {
         }
     }
 
-    /**
-   * Reset player's position to initial.
-   */
+    /** Reset player's possition and decease lives */
+    die() {
+        this.lives -= 1;
+
+        if (this.lives === 0) {
+            //   TO-DO - write game-over logic
+            this.reset();
+            console.log('Game over');
+        } else {
+            this.reset();
+
+            const livesList = Array.from(document.querySelectorAll('.fa-heart'));
+            for (let i = livesList.length - 1; i >= 0; i--) {
+                if (!livesList[i].classList.contains('lost')) {
+                    livesList[i].classList.toggle('lost');
+                    break;
+                }
+            }
+        }
+    }
+
+    /** Reset player's position to initial */
     reset() {
         this.y = this.spawnY;
         this.x = this.spawnX;
     }
 
-    /**
-     * Move character on key press
+    /** Move character on key press
      * @param {string} direction - the direction of the character's movement
      */
     handleInput(direction) {
