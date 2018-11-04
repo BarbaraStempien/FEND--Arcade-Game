@@ -93,9 +93,7 @@ class Player {
         };
 
         if (this.lives === 0) {
-            //   TO-DO - write game-over logic
-            this.reset();
-            console.log('Game over');
+            gameOver(this.score);
         } else {
             this.reset();
         }
@@ -134,6 +132,28 @@ class Player {
         }
     }
 }
+
+/** Show Game-over modal
+ * @param {number} score - points collected
+ */
+const gameOver = (score) => {
+    const modalContainer = document.querySelector('.modal');
+    const modalTemplate = `<div class="modal-content">
+                            <h2 class="modal-header">Game-over</h2>
+                            <p>Your Score</p>
+                            <p class="modal-score">${score}</p>
+                            <button class="modal-button">Play again</button>
+                            </div>`;
+
+    modalContainer.innerHTML = modalTemplate;
+    modalContainer.classList.add('active');
+
+    const modalButton = document.querySelector('.modal-button');
+    modalButton.addEventListener('click', () => {
+        window.location.reload();
+    });
+};
+
 
 // Instantiate player
 const player = new Player('images/char-horn-girl.png');
