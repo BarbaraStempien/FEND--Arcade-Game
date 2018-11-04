@@ -58,6 +58,7 @@ class Player {
         this.spawnY = blockHeight * 5 - quarterBlockHeight;
         this.y = this.spawnY;
         this.lives = 5;
+        this.score = 0;
     }
 
     /** Draw player to the screen */
@@ -74,6 +75,7 @@ class Player {
         });
 
         if (this.y <= quarterBlockHeight) {
+            this.getScore();
             this.reset();
         }
     }
@@ -97,6 +99,13 @@ class Player {
         } else {
             this.reset();
         }
+    }
+
+    /** Get score points when reaching the water */
+    getScore() {
+        this.score += 50;
+        const scoreContainer = document.querySelector('.score');
+        scoreContainer.innerHTML = this.score;
     }
 
     /** Reset player's position to initial */
