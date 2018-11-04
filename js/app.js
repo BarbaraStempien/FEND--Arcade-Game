@@ -189,6 +189,7 @@ const gameOver = (score) => {
 
     modalContainer.innerHTML = modalTemplate;
     modalContainer.classList.add('active');
+    paused = true;
 
     const modalButton = document.querySelector('.modal-button');
     modalButton.addEventListener('click', () => {
