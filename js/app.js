@@ -5,13 +5,7 @@ const randomArray = (array) => array[Math.floor((Math.random()*array.length))];
 // https://stackoverflow.com/a/7228322
 const randomInterval = (min, max) => Math.floor(Math.random()*(max-min+1)+min);
 
-// Coordinates for center of each path
-const pathCenter = [83, 166, 249];
-
-// Coordinates for each spawn point
-const spawnPoint = [-101, -202];
-
-// Cancas block parameters
+// Canvas block parameters
 const blockWidth = 101;
 const quarterBlockWidth = 0.25 * blockWidth;
 const blockHeight = 83;
@@ -19,33 +13,34 @@ const quarterBlockHeight = 0.25 * blockHeight;
 
 /** Class representing an enemy. */
 class Enemy {
-    /**
-   * Create an enemy.
-   * @param {number} x - initial position of enemy (horizontal)
-   * @param {number} y - initial position of enemy (vertical)
-   * @param {number} speed - enemy speed
-   * @param {string} sprite - path to enemy's image
-   */
-    constructor(x, y, speed) {
+    /** Create an enemy */
+    constructor() {
         this.sprite = 'images/enemy-bug.png';
-        this.x = x;
-        this.y = y - quarterBlockHeight;
-        this.speed = speed;
+        this.spawn();
     }
 
-    /**
-   * Draw enemy to the screen.
-   */
+    /** Select random spawn point */
+    spawn() {
+        // x axis, outside of the scene
+        const spawnPoint = [-blockWidth, -blockWidth * 2, -blockWidth * 3]; 
+        // y axis, center of block
+        const pathCenter = [blockHeight, blockHeight * 2, blockHeight * 3];
+
+        this.x = randomArray(spawnPoint);
+        this.y = randomArray(pathCenter) - quarterBlockHeight;
+        this.speed = randomInterval(100, 400);
+    }
+
+    /** Draw enemy to the screen. */
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
 
-    /**
-     * Move enemy back to spawn point when it reached the border.
+    /** Move enemy back to spawn point when it reached the border.
      * @param {number} dt - time delta
      */
     update(dt) {
-        (this.x < blockWidth * 5) ? this.x += this.speed * dt : this.x = randomArray(spawnPoint);
+        (this.x < blockWidth * 5) ? this.x += this.speed * dt : this.spawn();
     }
 };
 
@@ -120,12 +115,9 @@ const player = new Player('images/char-horn-girl.png');
 
 // Instantiate enemies
 const allEnemies = [];
-
-spawnPoint.forEach((s) => {
-    pathCenter.forEach((p) => {
-        allEnemies.push(new Enemy(s, p, randomInterval(100, 400)));
-    });
-});
+for (let i = 0; i < 5; i++) {
+    allEnemies[i] = new Enemy();
+}
 
 // This listens for key presses and sends the keys to
 // Player.handleInput() method.
