@@ -1,9 +1,9 @@
 // Random number from array
-const randomArray = (array) => array[Math.floor((Math.random()*array.length))];
+const randomArray = (array) => array[Math.floor((Math.random() * array.length))];
 
 // Random number from interval
 // https://stackoverflow.com/a/7228322
-const randomInterval = (min, max) => Math.floor(Math.random()*(max-min+1)+min);
+const randomInterval = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 
 // Canvas block parameters
 const blockWidth = 101;
@@ -22,7 +22,7 @@ class Enemy {
     /** Select random spawn point */
     spawn() {
         // x axis, outside of the scene
-        const spawnPoint = [-blockWidth, -blockWidth * 2, -blockWidth * 3]; 
+        const spawnPoint = [-blockWidth, -blockWidth * 2, -blockWidth * 3];
         // y axis, center of block
         const pathCenter = [blockHeight, blockHeight * 2, blockHeight * 3];
 
@@ -37,10 +37,10 @@ class Enemy {
     }
 
     /** Move enemy back to spawn point when it reached the border.
-     * @param {number} dt - time delta
-     */
+   * @param {number} dt - time delta
+   */
     update(dt) {
-        (this.x < blockWidth * 5) ? this.x += this.speed * dt : this.spawn();
+        (this.x < blockWidth * 5) ? this.x += this.speed * dt: this.spawn();
     }
 };
 
@@ -155,21 +155,21 @@ class Player {
     }
 
     /** Move character on key press
-     * @param {string} direction - the direction of the character's movement
-     */
+   * @param {string} direction - the direction of the character's movement
+   */
     handleInput(direction) {
         switch (direction) {
         case 'left':
-            (this.x > 0) ? this.x -= blockWidth : this.x;
+            (this.x > 0) ? this.x -= blockWidth: this.x;
             break;
         case 'up':
-            (this.y > 0) ? this.y -= blockHeight : this.y;
+            (this.y > 0) ? this.y -= blockHeight: this.y;
             break;
         case 'right':
-            (this.x < blockWidth * 4) ? this.x += blockWidth : this.x;
+            (this.x < blockWidth * 4) ? this.x += blockWidth: this.x;
             break;
         case 'down':
-            (this.y < blockHeight * 4) ? this.y += blockHeight : this.y;
+            (this.y < blockHeight * 4) ? this.y += blockHeight: this.y;
             break;
         }
     }
