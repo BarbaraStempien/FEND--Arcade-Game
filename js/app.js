@@ -44,6 +44,36 @@ class Enemy {
     }
 };
 
+/** Class representing a gem */
+class Gem {
+    /** Create an enemy */
+    constructor() {
+        this.spawn();
+    }
+
+    /** Select random spawn point */
+    spawn() {
+        // x axis, inside of the scene
+        const spawnPoint = [0, blockWidth, blockWidth * 2, blockWidth * 3, blockWidth * 4];
+        // y axis, center of block
+        const pathCenter = [blockHeight, blockHeight * 2, blockHeight * 3];
+        // gem types
+        const sprites = ['images/GemOrange.png', 'images/GemGreen.png', 'images/GemBlue.png'];
+
+        this.x = randomArray(spawnPoint);
+        this.y = randomArray(pathCenter) - quarterBlockHeight;
+        this.sprite = randomArray(sprites);
+    }
+
+    /** Draw gem to the screen.
+     * Make gem smaller by passing the width and height to draw the image in the destination canvas
+     * https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage
+     */
+    render() {
+        ctx.drawImage(Resources.get(this.sprite), this.x + quarterBlockWidth, this.y + quarterBlockHeight * 2.5, 54, 88);
+    }
+}
+
 /** Class representing a player. */
 class Player {
     /** Create a player
@@ -68,14 +98,24 @@ class Player {
 
     /** Reset character position when it collides with enemy or when player wins */
     update() {
+        // player collided with enemy
         allEnemies.forEach((enemy) => {
             if (this.y === enemy.y && (enemy.x + quarterBlockWidth >= this.x - quarterBlockWidth && enemy.x - quarterBlockWidth <= this.x + quarterBlockWidth)) {
                 this.die();
             }
         });
 
+        // player collected a gem
+        allGems.forEach((gem) => {
+            if (this.y === gem.y && (gem.x + quarterBlockWidth >= this.x - quarterBlockWidth && gem.x - quarterBlockWidth <= this.x + quarterBlockWidth)) {
+                player.getScore(25);
+                gem.spawn();
+            };
+        });
+
+        // player reached the water
         if (this.y <= quarterBlockHeight) {
-            this.getScore();
+            this.getScore(50);
             this.reset();
         }
     }
@@ -99,9 +139,11 @@ class Player {
         }
     }
 
-    /** Get score points when reaching the water */
-    getScore() {
-        this.score += 50;
+    /** Get score points when reaching the water
+     * @param {number} score - number of points user will get
+   */
+    getScore(score) {
+        this.score += score;
         const scoreContainer = document.querySelector('.score');
         scoreContainer.innerHTML = this.score;
     }
@@ -162,6 +204,12 @@ const player = new Player('images/char-horn-girl.png');
 const allEnemies = [];
 for (let i = 0; i < 5; i++) {
     allEnemies[i] = new Enemy();
+}
+
+// Instantiate gems
+const allGems = [];
+for (let i = 0; i < 2; i++) {
+    allGems[i] = new Gem();
 }
 
 // This listens for key presses and sends the keys to

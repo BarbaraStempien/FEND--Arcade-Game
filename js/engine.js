@@ -160,11 +160,15 @@ const Engine = (function(global) {
         /* Loop through all of the objects within the allEnemies array and call
          * the render function you have defined.
          */
-        allEnemies.forEach(function(enemy) {
-            enemy.render();
+        allGems.forEach(function(gem) {
+            gem.render();
         });
 
         player.render();
+
+        allEnemies.forEach(function(enemy) {
+            enemy.render();
+        });
     }
 
     /** This function does nothing but it could have been a good place to
@@ -186,6 +190,9 @@ const Engine = (function(global) {
         'images/enemy-bug.png',
         'images/char-boy.png',
         'images/char-horn-girl.png',
+        'images/GemBlue.png',
+        'images/GemGreen.png',
+        'images/GemOrange.png',
     ]);
     Resources.onReady(init);
 
