@@ -14,9 +14,9 @@
 
 This is an arcade game - the player tries to reach the water without colliding into enemies. Once the player reaches the water the game is won and the player's score is increased.
 
-The enemies - bugs - move in varying speeds on the paved block portion of the scene. Once the player collides with an enemy, the game is reset and the player moves back to the start square. Player's score and the number of lives are decreased. The game is over when all lives are lost. 
+The enemies - bugs - move in varying speeds on the paved block portion of the scene. Once the player collides with an enemy, the game is reset and the player moves back to the start square. Player's number of lives is decreased. The game is over when all lives are lost. 
 
-The player can receive a bonus life for collecting a key. Moreover, the player can also increase the score by collecting gems. Gems and key spans in the random places on the scene.
+The player can increase the score by collecting gems. Gems span in the random places on the scene.
 
 ## How to play 🕹
 
